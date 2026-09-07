@@ -19,21 +19,21 @@ namespace Kumwe\Audit\Domain;
  * whatever the migration managed to do, which is what keeps it true after a dump is restored onto a
  * different server, after a DBA grants the missing privilege, and after someone drops the triggers.
  *
- * @since  2.0.0
+ * @since  0.1.0
  */
 enum AuditEnforcementState: string
 {
     /**
      * The triggers are present, so the database itself refuses an `UPDATE` or an unsanctioned `DELETE`.
      *
-     * @since  2.0.0
+     * @since  0.1.0
      */
     case Active = 'active';
 
     /**
      * The triggers are absent, so nothing but application discipline keeps the trail append-only.
      *
-     * @since  2.0.0
+     * @since  0.1.0
      */
     case NotInstalled = 'not_installed';
 
@@ -42,7 +42,7 @@ enum AuditEnforcementState: string
      *
      * @return  bool  True only when the guards are installed on this server.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function installed(): bool
     {
@@ -54,7 +54,7 @@ enum AuditEnforcementState: string
      *
      * @return  string  One sentence naming what is and is not being enforced.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function summary(): string
     {

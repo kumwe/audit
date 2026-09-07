@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Kumwe\Audit\Application;
 
+use Kumwe\Audit\Domain\AuditMetadata;
+
 /**
  * Last-line redaction applied to audit metadata on its way out of the trail into an archive.
  *
@@ -16,7 +18,7 @@ namespace Kumwe\Audit\Application;
  * digest are never touched, so a redacted archive and the live trail still verify against each other
  * through the anchors rather than through the archive's bytes.
  *
- * @since  2.0.0
+ * @since  0.1.0
  */
 final class AuditMetadataRedactor
 {
@@ -24,7 +26,7 @@ final class AuditMetadataRedactor
      * Placeholder written in place of a value that must not leave the installation.
      *
      * @var    string
-     * @since  2.0.0
+     * @since  0.1.0
      */
     public const string PLACEHOLDER = '[redacted]';
 
@@ -35,7 +37,7 @@ final class AuditMetadataRedactor
      * to the same fragment and no spelling of a credential slips through.
      *
      * @var    list<string>
-     * @since  2.0.0
+     * @since  0.1.0
      */
     private const array KEY_FRAGMENTS = [
         'apikey',
@@ -55,7 +57,7 @@ final class AuditMetadataRedactor
      * Byte length above which an opaque single-token string is redacted whatever its key is.
      *
      * @var    int
-     * @since  2.0.0
+     * @since  0.1.0
      */
     private const int OPAQUE_LENGTH = 128;
 
@@ -67,9 +69,23 @@ final class AuditMetadataRedactor
      *
      * @return  array<string, mixed>  The document with every matched value replaced by the placeholder.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public static function redact(array $metadata, int &$redacted): array
+    {
+        $snapshot = AuditMetadata::snapshot($metadata);
+        $count = 0;
+        /** @var array<string, mixed> $result */
+        $result = self::redactValues($snapshot, $count);
+        $redacted += $count;
+        return $result;
+    }
+
+    /**
+     * @param array<array-key, mixed> $metadata
+     * @return array<array-key, mixed>
+     */
+    private static function redactValues(array $metadata, int &$redacted): array
     {
         foreach ($metadata as $key => $value) {
             if (self::matches($key, $value)) {
@@ -79,7 +95,7 @@ final class AuditMetadataRedactor
             }
             if (is_array($value)) {
                 /** @var array<string, mixed> $value */
-                $metadata[$key] = self::redact($value, $redacted);
+                $metadata[$key] = self::redactValues($value, $redacted);
             }
         }
 
@@ -94,7 +110,7 @@ final class AuditMetadataRedactor
      *
      * @return  bool  True when the key names a credential or the value is a long opaque token.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     private static function matches(int|string $key, mixed $value): bool
     {

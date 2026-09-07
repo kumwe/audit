@@ -20,7 +20,7 @@ use Kumwe\CanonicalJson\CanonicalEncoder;
  * JSON both arrive at the same bytes. The digest is deliberately unkeyed: it makes silent mutation
  * evident, while authenticity of the whole trail is anchored by the chained `audit_anchors` ledger.
  *
- * @since  2.0.0
+ * @since  0.1.0
  */
 final class AuditEventDigest
 {
@@ -31,7 +31,7 @@ final class AuditEventDigest
      * an explicit divergence instead of a silent one.
      *
      * @var    string
-     * @since  2.0.0
+     * @since  0.1.0
      */
     public const string CHAIN_CONTEXT = 'kumwe-audit-event-v1';
 
@@ -42,7 +42,7 @@ final class AuditEventDigest
      * the digest recomputed from a fetched row cover identical bytes.
      *
      * @var    string
-     * @since  2.0.0
+     * @since  0.1.0
      */
     public const string INSTANT_FORMAT = 'Y-m-d H:i:s';
 
@@ -62,7 +62,7 @@ final class AuditEventDigest
      *
      * @throws  InvalidArgumentException  When the metadata cannot be represented as canonical JSON.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public static function compute(
         string $id,

@@ -14,7 +14,7 @@ use Kumwe\Audit\Domain\StoredAuditArchive;
  * over exactly the bytes that landed. Export and retention both write through this port, so incident
  * preservation and retention archiving produce files with identical storage guarantees.
  *
- * @since  2.0.0
+ * @since  0.1.0
  */
 interface AuditArchiveStorage
 {
@@ -28,7 +28,7 @@ interface AuditArchiveStorage
      *
      * @throws  \RuntimeException  When a chunk is invalid or the filesystem refuses a safe write.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function store(string $archiveId, iterable $chunks): StoredAuditArchive;
 }

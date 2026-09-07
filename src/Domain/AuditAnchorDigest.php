@@ -19,7 +19,7 @@ use Kumwe\CanonicalJson\CanonicalEncoder;
  * arithmetic so the evidence for a retention window that was archived and removed stays inside the
  * same chain the verifier walks.
  *
- * @since  2.0.0
+ * @since  0.1.0
  */
 final class AuditAnchorDigest
 {
@@ -27,7 +27,7 @@ final class AuditAnchorDigest
      * Versioned context string prefixed to both the rolling and the anchor digests.
      *
      * @var    string
-     * @since  2.0.0
+     * @since  0.1.0
      */
     public const string CHAIN_CONTEXT = 'kumwe-audit-anchor-v1';
 
@@ -39,7 +39,7 @@ final class AuditAnchorDigest
      *
      * @return  string  Lowercase hexadecimal SHA-256 binding both the digests and their order.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public static function rolling(iterable $digestsByPosition): string
     {
@@ -69,7 +69,7 @@ final class AuditAnchorDigest
      *
      * @throws  InvalidArgumentException  When a field cannot be represented as canonical JSON.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public static function compute(
         int $sequence,

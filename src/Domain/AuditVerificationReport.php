@@ -18,7 +18,7 @@ namespace Kumwe\Audit\Domain;
  * it is only *detecting* tampering, where a guarded server also *prevents* it. Reporting the two
  * together is what stops the weaker posture from reading as the stronger one.
  *
- * @since  2.0.0
+ * @since  0.1.0
  */
 final readonly class AuditVerificationReport
 {
@@ -31,7 +31,7 @@ final readonly class AuditVerificationReport
      * @param  AuditEnforcementState      $enforcement      Append-only enforcement observed on this server.
      * @param  ?AuditVerificationFinding  $firstDivergence  First divergence found, or null for an intact trail.
      *
-     * @since  2.0.0
+     * @since  0.1.0
      */
     public function __construct(
         public int $eventsVerified,
@@ -51,7 +51,7 @@ final readonly class AuditVerificationReport
      *
      * @return  bool  True when every checked event and anchor agreed with its recomputation.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function intact(): bool
     {
@@ -63,7 +63,7 @@ final readonly class AuditVerificationReport
      *
      * @return  bool  True only when the chain is intact and the append-only guards are installed.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function guarded(): bool
     {

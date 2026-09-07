@@ -17,7 +17,7 @@ use Kumwe\Audit\Domain\AuditVerificationReport;
  * the next pass. Both the `audit:verify` console command and the scheduled verification job speak
  * through this port, so the two surfaces cannot drift apart in what they prove.
  *
- * @since  2.0.0
+ * @since  0.1.0
  */
 interface AuditTrailVerifier
 {
@@ -33,7 +33,7 @@ interface AuditTrailVerifier
      * @throws  \RuntimeException  When the actor may not verify
      *          the audit trail.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function verify(ExecutionContext $context, int $batchSize = 1000): AuditVerificationReport;
 }
