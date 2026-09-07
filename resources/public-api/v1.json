@@ -1,7 +1,7 @@
 {
     "schema": "kumwe-package-public-api/v1",
     "package": "kumwe/audit",
-    "release": "0.1.0",
+    "release": "0.1.1",
     "namespace": "Kumwe\\Audit\\",
     "symbols": {
         "Kumwe\\Audit\\Application\\AuditArchiveStorage": {

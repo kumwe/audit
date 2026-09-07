@@ -29,5 +29,12 @@ final readonly class StoredAuditArchive
         public int $size,
         public string $checksum,
     ) {
+        if (
+            $key === '' || strlen($key) > 1024 || preg_match('//u', $key) !== 1
+            || preg_match('/[\x00-\x1F\x7F]/', $key) === 1
+            || $size < 0 || preg_match('/^[a-f0-9]{64}$/D', $checksum) !== 1
+        ) {
+            throw new \InvalidArgumentException('Stored audit archive evidence is invalid.');
+        }
     }
 }
