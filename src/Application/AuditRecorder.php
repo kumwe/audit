@@ -16,7 +16,7 @@ use Kumwe\Audit\Domain\AuditEvent;
  * never through this interface — which lets application code depend on the obligation to record
  * without knowing whether the trail lands in the database, a file, or a test double.
  *
- * @since  2.0.0
+ * @since  0.1.0
  */
 interface AuditRecorder
 {
@@ -27,7 +27,7 @@ interface AuditRecorder
      *
      * @return  void
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function record(AuditEvent $event): void;
 }

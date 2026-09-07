@@ -11,7 +11,7 @@ namespace Kumwe\Audit\Domain;
  * what landed on disk. Callers persist all three inside the audit trail itself — an export event or a
  * prune mark — which is what lets an operator later prove an archive file is the one the trail names.
  *
- * @since  2.0.0
+ * @since  0.1.0
  */
 final readonly class StoredAuditArchive
 {
@@ -22,7 +22,7 @@ final readonly class StoredAuditArchive
      * @param  int     $size      Exact byte size of the stored archive.
      * @param  string  $checksum  Lowercase hexadecimal SHA-256 of the stored bytes.
      *
-     * @since  2.0.0
+     * @since  0.1.0
      */
     public function __construct(
         public string $key,

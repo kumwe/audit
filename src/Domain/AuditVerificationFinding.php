@@ -12,7 +12,7 @@ namespace Kumwe\Audit\Domain;
  * mismatched digest is unreliable evidence: the point of the report is where trust ends, not an
  * inventory of every consequence downstream of it.
  *
- * @since  2.0.0
+ * @since  0.1.0
  */
 final readonly class AuditVerificationFinding
 {
@@ -24,7 +24,7 @@ final readonly class AuditVerificationFinding
      * @param  string   $detail    Operator-facing explanation of what disagreed.
      * @param  ?string  $eventId   UUID of the divergent audit row when the divergence names one.
      *
-     * @since  2.0.0
+     * @since  0.1.0
      */
     public function __construct(
         public string $code,

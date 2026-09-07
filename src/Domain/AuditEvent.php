@@ -6,7 +6,6 @@ namespace Kumwe\Audit\Domain;
 
 use DateTimeImmutable;
 use InvalidArgumentException;
-use JsonException;
 
 /**
  * Immutable record of one audited action: who did it, to what, when, and how it ended.
@@ -19,7 +18,7 @@ use JsonException;
  * longer token fails here rather than at the database. Metadata is stored verbatim, so it carries safe
  * context only — never credentials, tokens, or raw request bodies.
  *
- * @since  2.0.0
+ * @since  0.1.0
  */
 final readonly class AuditEvent
 {
@@ -27,7 +26,7 @@ final readonly class AuditEvent
      * Context captured with the action, proven JSON-encodable when the event was built.
      *
      * @var    array<string, mixed>
-     * @since  2.0.0
+     * @since  0.1.0
      */
     private array $metadata;
 
@@ -50,7 +49,7 @@ final readonly class AuditEvent
      *
      * @throws  InvalidArgumentException  When any field is malformed or the metadata is not a JSON object.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function __construct(
         private string $id,
@@ -78,20 +77,8 @@ final readonly class AuditEvent
         self::assertIdentifier($subjectType, 'subject type', 63);
         self::assertIdentifier($outcome, 'outcome', 31);
 
-        foreach (array_keys($metadata) as $key) {
-            if (!is_string($key)) {
-                throw new InvalidArgumentException('Audit metadata must be an object with string keys.');
-            }
-        }
-
-        try {
-            json_encode($metadata, JSON_THROW_ON_ERROR);
-        } catch (JsonException $exception) {
-            throw new InvalidArgumentException('Audit metadata must be JSON-serializable.', 0, $exception);
-        }
-
         /** @var array<string, mixed> $metadata */
-        $this->metadata = $metadata;
+        $this->metadata = AuditMetadata::snapshot($metadata);
     }
 
     /**
@@ -99,7 +86,7 @@ final readonly class AuditEvent
      *
      * @return  string  Canonical UUID chosen when the event was built; the primary key of the stored row.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function id(): string
     {
@@ -111,7 +98,7 @@ final readonly class AuditEvent
      *
      * @return  DateTimeImmutable  Time taken from the use case's clock, not the time of the write.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function occurredAt(): DateTimeImmutable
     {
@@ -123,7 +110,7 @@ final readonly class AuditEvent
      *
      * @return  ?string  Opaque actor id, or null when the platform acted with no user behind it.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function actorId(): ?string
     {
@@ -135,7 +122,7 @@ final readonly class AuditEvent
      *
      * @return  string  Lowercase machine token such as `content.transition`, safe to filter the trail on.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function action(): string
     {
@@ -147,7 +134,7 @@ final readonly class AuditEvent
      *
      * @return  string  Machine token such as `content`, which gives the subject id its namespace.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function subjectType(): string
     {
@@ -159,7 +146,7 @@ final readonly class AuditEvent
      *
      * @return  ?string  Opaque subject id, or null for an action with no single subject.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function subjectId(): ?string
     {
@@ -171,7 +158,7 @@ final readonly class AuditEvent
      *
      * @return  string  Machine token such as `success` or `allowed`, at most 31 bytes.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function outcome(): string
     {
@@ -183,7 +170,7 @@ final readonly class AuditEvent
      *
      * @return  array<string, mixed>  Caller-supplied detail keyed by string; empty when the caller gave none.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function metadata(): array
     {
@@ -198,7 +185,7 @@ final readonly class AuditEvent
      *
      * @return  string  JSON object literal of the metadata.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function metadataAsJson(): string
     {
@@ -220,7 +207,7 @@ final readonly class AuditEvent
      *
      * @throws  InvalidArgumentException  When the value is empty, over 191 bytes, or breaks that shape.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     private static function assertOpaqueId(string $value, string $field): void
     {
@@ -240,7 +227,7 @@ final readonly class AuditEvent
      *
      * @throws  InvalidArgumentException  When the token exceeds the budget or is not a lowercase token.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     private static function assertIdentifier(string $value, string $field, int $maxLength): void
     {

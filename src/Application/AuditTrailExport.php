@@ -14,7 +14,7 @@ use Kumwe\Audit\Domain\StoredAuditArchive;
  * names the newest anchor at export time, tying the archived range to the sealed evidence that
  * existed when it was taken.
  *
- * @since  2.0.0
+ * @since  0.1.0
  */
 final readonly class AuditTrailExport
 {
@@ -29,7 +29,7 @@ final readonly class AuditTrailExport
      * @param  ?int                $anchorSequence  Newest anchor sequence at export time, or null when
      *         the ledger holds no anchor yet.
      *
-     * @since  2.0.0
+     * @since  0.1.0
      */
     public function __construct(
         public StoredAuditArchive $archive,

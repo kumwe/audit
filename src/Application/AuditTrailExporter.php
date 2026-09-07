@@ -14,7 +14,7 @@ use Kumwe\Context\Value\ExecutionContext;
  * recorded as an audit event so the trail always names who took a copy of it and what that copy
  * contained. Incident response and the retention job both preserve evidence through this port.
  *
- * @since  2.0.0
+ * @since  0.1.0
  */
 interface AuditTrailExporter
 {
@@ -32,7 +32,7 @@ interface AuditTrailExporter
      * @throws  \RuntimeException  When the actor may not export
      *          the audit trail.
      *
-     * @since   2.0.0
+     * @since   0.1.0
      */
     public function export(
         ExecutionContext $context,
