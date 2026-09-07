@@ -1,5 +1,7 @@
 # Public API
 
+Evidence constructors reject malformed state with InvalidArgumentException. Archive keys are nonempty valid UTF-8, control-free and at most 1024 bytes; size is nonnegative and checksum is lowercase SHA-256. Export ranges are positive and ordered, with 1..range-size events, nonnegative redactions and a positive optional anchor sequence. Findings use bounded lowercase machine tokens, nonnegative positions and nonempty UTF-8 details of at most 4096 bytes. Report counts are nonnegative and verified events cannot exceed the observed head. The rolling evidence corpus is resources/audit-corpus/rolling-v1.json.
+
 The source contracts below define parameters, return values, exceptions and invariants. [The machine manifest](../resources/public-api/v1.json) freezes signatures and is checked by `composer api`. All values are immutable; static helpers have no retained state and perform no I/O. Host port implementations own their documented side effects and concurrency guarantees. The injected canonical encoder must implement GenericV1; no service is resolved globally.
 
 ## Kumwe\Audit\Application\AuditArchiveStorage

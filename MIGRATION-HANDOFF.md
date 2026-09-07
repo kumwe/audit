@@ -40,7 +40,7 @@ target:
   artifact_identity: kumwe/audit
   canonical_namespace_or_abi: Kumwe\Audit
   branch: codex/extraction-readiness-20260907
-  pull_request: https://github.com/kumwe/audit/pull/1
+  pull_request: https://github.com/kumwe/audit/pull/5
 ownership:
   responsibility: Bounded immutable audit events, secret redaction, versioned event
     and anchor digests, evidence values and host storage ports.
@@ -57,11 +57,11 @@ ownership:
   next_consumer: kumwe/app
   public_manifests:
   - path: resources/capabilities/v1.json
-    sha256: 6dce4ec9a80de222c483051775d559f947db2e902cd8cd376c61ba212fed3b90
+    sha256: 4cd3105e96ff4a19399266deb7f99884f1ae205ec83f65d9a3afc24894825fed
   - path: resources/service-map/v1.json
-    sha256: c5e963ff743a6e662b8433196bb7896de116a179f7f4d69947071a53156757c8
+    sha256: 1afbe1eec826be0cfb9fba6f7db17b417e94548e10d6f9c5f3cd3df2686bf0ad
   - path: resources/public-api/v1.json
-    sha256: 592b558aba25f41b318fa11af3e52f96287da30a83300d717b0cee393acacee5
+    sha256: f5a1da42c631493e251a9190ab9ac039d6cb7393fbb06048cb55ca6442f953b8
   intentionally_excluded:
   - App infrastructure, middleware, operational scheduling and consumer integration
     tests
@@ -462,38 +462,33 @@ decisions:
 - No App adoption, merge, tag or release in this task.
 - Candidate dependency ZIP isolation is not release provenance.
 blockers:
-- CanonicalEncoder immutable successor release and external dependency attestations
-  are not yet available.
+- Independent verification of this successor and exact dependencies remains required before App adoption.
 ---
 
 # Migration/implementation summary
 
-The portable source and tests are implemented in this package. Host infrastructure remains in App. Source/API mapping and explicit ownership appear above.
+14 types; bounded detached audit metadata, digest profiles, redaction, evidence values and recording/archive/export/verification ports. Archive, export, finding and report validation plus language-neutral rolling digest vectors are library-owned. Doctrine ledger walks remain host adapters.
 
-# Public API and responsibility
+## Public API and responsibility
 
-[Public API](docs/public-api.md), [architecture](docs/architecture.md) and [integration](docs/integration.md) define complete signatures, bounds, exceptions and authority.
+The symbol map above and [public API](docs/public-api.md) define every exported contract. [Architecture](docs/architecture.md) and [integration](docs/integration.md) retain the host boundaries.
 
-# Capability reuse/semantic input review
+## Capability reuse/semantic input review
 
-The explicit generic-v1 canonical port is reused; no executor or vendor algorithm is copied. Access Context is reused by audit context ports. Candidate install inputs are independently archived by the consumer gate and cannot authorize a release.
+This successor selects Context 0.1.1 and retains Canonical JSON 0.1.1. Published Audit 0.1.0 still pins Context 0.1.0. [Current release/dependency observations](docs/readiness-review.md) supersede obsolete initial-extraction publication blockers. No independent attestation is fabricated.
 
-# Consumer inventory
+## Consumer inventory and drift check
 
-The extracted-symbol mapping identifies old App/SDK imports. Before Phase 2 recompute imports, constructor calls, reflection strings, configuration and fixtures with `rg` against the current consumer commit. Inject the existing host canonical service through the port and leave adapter authority in App.
+The source/consumer mappings above remain the adoption inventory. Compare every mapped file and public signature against the recorded full App baseline and current App before consumer changes. Any newer portable behavior goes upstream first. Preserve App authority, adapters and workflows.
 
-# Test ownership
+## Test ownership
 
-Package tests own portable behavior and refusal cases. Original App tests remain temporarily because this is Phase 1; remove those implementation copies only in the separate verified adoption. Host concurrency, security, rollback and database tests remain.
+Package tests own portable behavior, boundary/conformance, API and construction. App retains actual authorization, transaction atomicity, persistence, concurrency, recovery and delivery tests. Remove only duplicate portable implementation tests during the separate verified adoption.
 
-# Next-task execution notes
+## Next-task execution notes
 
-First review source changes and verify the canonical dependency successor. Replace the development dependency using Composer with its exact immutable release and verify external attestation. A human merges the package; automation publishes. Independently verify the release before any App namespace migration or class deletion.
+Review [PR #5](https://github.com/kumwe/audit/pull/5), require its complete package gate, then let the maintainer merge. Independently verify the published successor and exact dependency graph before App adoption. Existing published releases stay intact. This task does not implement the App runtime cutover.
 
-# Drift check
+## Validation recipe
 
-Compare current App and SDK source against the source commits above. Reusable semantic changes require a separate upstream package change and release; do not maintain a host shadow implementation.
-
-# Validation recipe and observed local results
-
-Run `composer check`, `composer autoload:smoke`, `composer examples` and the release automation tests. PHP 8.5.10 behavior tests passed: 24 tests / 64 assertions. Final tested commits/trees and archive identities belong to external evidence, never self-referential handoff claims. Release/dependent-publication eligibility is not claimed.
+Run `composer check` and the repository release automation regressions. Runtime suites, strict static analysis, coding standards, manifest/API checks and the no-dev authoritative archive consumer remain required. Final tested source and archive identities belong in external CI/attestation evidence.
