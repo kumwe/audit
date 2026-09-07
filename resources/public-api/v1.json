@@ -1,0 +1,926 @@
+{
+    "schema": "kumwe-package-public-api/v1",
+    "package": "kumwe/audit",
+    "release": "0.1.0",
+    "namespace": "Kumwe\\Audit\\",
+    "symbols": {
+        "Kumwe\\Audit\\Application\\AuditArchiveStorage": {
+            "kind": "interface",
+            "stability": "stable",
+            "file": "src/Application/AuditArchiveStorage.php",
+            "abstract": false,
+            "final": false,
+            "readonly": false,
+            "parent": null,
+            "interfaces": [],
+            "constants": {},
+            "properties": {},
+            "methods": {
+                "store": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [
+                        {
+                            "name": "archiveId",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "chunks",
+                            "type": "iterable",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        }
+                    ],
+                    "return": "Kumwe\\Audit\\Domain\\StoredAuditArchive"
+                }
+            },
+            "deprecated": null
+        },
+        "Kumwe\\Audit\\Application\\AuditMetadataRedactor": {
+            "kind": "class",
+            "stability": "stable",
+            "file": "src/Application/AuditMetadataRedactor.php",
+            "abstract": false,
+            "final": true,
+            "readonly": false,
+            "parent": null,
+            "interfaces": [],
+            "constants": {
+                "PLACEHOLDER": {
+                    "type": "string"
+                }
+            },
+            "properties": {},
+            "methods": {
+                "redact": {
+                    "visibility": "public",
+                    "static": true,
+                    "parameters": [
+                        {
+                            "name": "metadata",
+                            "type": "array",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "redacted",
+                            "type": "int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": true
+                        }
+                    ],
+                    "return": "array"
+                }
+            },
+            "deprecated": null
+        },
+        "Kumwe\\Audit\\Application\\AuditRecorder": {
+            "kind": "interface",
+            "stability": "stable",
+            "file": "src/Application/AuditRecorder.php",
+            "abstract": false,
+            "final": false,
+            "readonly": false,
+            "parent": null,
+            "interfaces": [],
+            "constants": {},
+            "properties": {},
+            "methods": {
+                "record": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [
+                        {
+                            "name": "event",
+                            "type": "Kumwe\\Audit\\Domain\\AuditEvent",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        }
+                    ],
+                    "return": "void"
+                }
+            },
+            "deprecated": null
+        },
+        "Kumwe\\Audit\\Application\\AuditTrailExport": {
+            "kind": "class",
+            "stability": "stable",
+            "file": "src/Application/AuditTrailExport.php",
+            "abstract": false,
+            "final": true,
+            "readonly": true,
+            "parent": null,
+            "interfaces": [],
+            "constants": {},
+            "properties": {
+                "anchorSequence": {
+                    "type": "?int",
+                    "static": false,
+                    "readonly": true
+                },
+                "archive": {
+                    "type": "Kumwe\\Audit\\Domain\\StoredAuditArchive",
+                    "static": false,
+                    "readonly": true
+                },
+                "eventCount": {
+                    "type": "int",
+                    "static": false,
+                    "readonly": true
+                },
+                "fromPosition": {
+                    "type": "int",
+                    "static": false,
+                    "readonly": true
+                },
+                "redactedCount": {
+                    "type": "int",
+                    "static": false,
+                    "readonly": true
+                },
+                "toPosition": {
+                    "type": "int",
+                    "static": false,
+                    "readonly": true
+                }
+            },
+            "methods": {
+                "__construct": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [
+                        {
+                            "name": "archive",
+                            "type": "Kumwe\\Audit\\Domain\\StoredAuditArchive",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "fromPosition",
+                            "type": "int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "toPosition",
+                            "type": "int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "eventCount",
+                            "type": "int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "redactedCount",
+                            "type": "int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "anchorSequence",
+                            "type": "?int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        }
+                    ],
+                    "return": null
+                }
+            },
+            "deprecated": null
+        },
+        "Kumwe\\Audit\\Application\\AuditTrailExporter": {
+            "kind": "interface",
+            "stability": "stable",
+            "file": "src/Application/AuditTrailExporter.php",
+            "abstract": false,
+            "final": false,
+            "readonly": false,
+            "parent": null,
+            "interfaces": [],
+            "constants": {},
+            "properties": {},
+            "methods": {
+                "export": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [
+                        {
+                            "name": "context",
+                            "type": "Kumwe\\Context\\Value\\ExecutionContext",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "fromPosition",
+                            "type": "?int",
+                            "optional": true,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "toPosition",
+                            "type": "?int",
+                            "optional": true,
+                            "variadic": false,
+                            "by_reference": false
+                        }
+                    ],
+                    "return": "Kumwe\\Audit\\Application\\AuditTrailExport"
+                }
+            },
+            "deprecated": null
+        },
+        "Kumwe\\Audit\\Application\\AuditTrailVerifier": {
+            "kind": "interface",
+            "stability": "stable",
+            "file": "src/Application/AuditTrailVerifier.php",
+            "abstract": false,
+            "final": false,
+            "readonly": false,
+            "parent": null,
+            "interfaces": [],
+            "constants": {},
+            "properties": {},
+            "methods": {
+                "verify": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [
+                        {
+                            "name": "context",
+                            "type": "Kumwe\\Context\\Value\\ExecutionContext",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "batchSize",
+                            "type": "int",
+                            "optional": true,
+                            "variadic": false,
+                            "by_reference": false
+                        }
+                    ],
+                    "return": "Kumwe\\Audit\\Domain\\AuditVerificationReport"
+                }
+            },
+            "deprecated": null
+        },
+        "Kumwe\\Audit\\Domain\\AuditAnchorDigest": {
+            "kind": "class",
+            "stability": "stable",
+            "file": "src/Domain/AuditAnchorDigest.php",
+            "abstract": false,
+            "final": true,
+            "readonly": false,
+            "parent": null,
+            "interfaces": [],
+            "constants": {
+                "CHAIN_CONTEXT": {
+                    "type": "string"
+                }
+            },
+            "properties": {},
+            "methods": {
+                "compute": {
+                    "visibility": "public",
+                    "static": true,
+                    "parameters": [
+                        {
+                            "name": "sequence",
+                            "type": "int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "kind",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "fromPosition",
+                            "type": "int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "toPosition",
+                            "type": "int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "rowCount",
+                            "type": "int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "rollingDigest",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "previousDigest",
+                            "type": "?string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "archiveSha256",
+                            "type": "?string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "createdAt",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "encoder",
+                            "type": "Kumwe\\CanonicalJson\\CanonicalEncoder",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        }
+                    ],
+                    "return": "string"
+                },
+                "rolling": {
+                    "visibility": "public",
+                    "static": true,
+                    "parameters": [
+                        {
+                            "name": "digestsByPosition",
+                            "type": "iterable",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        }
+                    ],
+                    "return": "string"
+                }
+            },
+            "deprecated": null
+        },
+        "Kumwe\\Audit\\Domain\\AuditEnforcementState": {
+            "kind": "enum",
+            "stability": "stable",
+            "file": "src/Domain/AuditEnforcementState.php",
+            "abstract": false,
+            "final": true,
+            "readonly": false,
+            "parent": null,
+            "interfaces": [],
+            "constants": {
+                "Active": {
+                    "type": "string"
+                },
+                "NotInstalled": {
+                    "type": "string"
+                }
+            },
+            "properties": {},
+            "methods": {
+                "installed": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [],
+                    "return": "bool"
+                },
+                "summary": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [],
+                    "return": "string"
+                }
+            },
+            "deprecated": null
+        },
+        "Kumwe\\Audit\\Domain\\AuditEvent": {
+            "kind": "class",
+            "stability": "stable",
+            "file": "src/Domain/AuditEvent.php",
+            "abstract": false,
+            "final": true,
+            "readonly": true,
+            "parent": null,
+            "interfaces": [],
+            "constants": {},
+            "properties": {},
+            "methods": {
+                "__construct": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "occurredAt",
+                            "type": "DateTimeImmutable",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "actorId",
+                            "type": "?string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "action",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "subjectType",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "subjectId",
+                            "type": "?string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "outcome",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "metadata",
+                            "type": "array",
+                            "optional": true,
+                            "variadic": false,
+                            "by_reference": false
+                        }
+                    ],
+                    "return": null
+                },
+                "action": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [],
+                    "return": "string"
+                },
+                "actorId": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [],
+                    "return": "?string"
+                },
+                "id": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [],
+                    "return": "string"
+                },
+                "metadata": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [],
+                    "return": "array"
+                },
+                "metadataAsJson": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [],
+                    "return": "string"
+                },
+                "occurredAt": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [],
+                    "return": "DateTimeImmutable"
+                },
+                "outcome": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [],
+                    "return": "string"
+                },
+                "subjectId": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [],
+                    "return": "?string"
+                },
+                "subjectType": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [],
+                    "return": "string"
+                }
+            },
+            "deprecated": null
+        },
+        "Kumwe\\Audit\\Domain\\AuditEventDigest": {
+            "kind": "class",
+            "stability": "stable",
+            "file": "src/Domain/AuditEventDigest.php",
+            "abstract": false,
+            "final": true,
+            "readonly": false,
+            "parent": null,
+            "interfaces": [],
+            "constants": {
+                "CHAIN_CONTEXT": {
+                    "type": "string"
+                },
+                "INSTANT_FORMAT": {
+                    "type": "string"
+                }
+            },
+            "properties": {},
+            "methods": {
+                "compute": {
+                    "visibility": "public",
+                    "static": true,
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "occurredAt",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "actorId",
+                            "type": "?string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "action",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "subjectType",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "subjectId",
+                            "type": "?string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "outcome",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "metadata",
+                            "type": "array",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "encoder",
+                            "type": "Kumwe\\CanonicalJson\\CanonicalEncoder",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        }
+                    ],
+                    "return": "string"
+                }
+            },
+            "deprecated": null
+        },
+        "Kumwe\\Audit\\Domain\\AuditMetadata": {
+            "kind": "class",
+            "stability": "stable",
+            "file": "src/Domain/AuditMetadata.php",
+            "abstract": false,
+            "final": true,
+            "readonly": false,
+            "parent": null,
+            "interfaces": [],
+            "constants": {
+                "MAX_BYTES": {
+                    "type": "int"
+                },
+                "MAX_DEPTH": {
+                    "type": "int"
+                },
+                "MAX_ENTRIES": {
+                    "type": "int"
+                }
+            },
+            "properties": {},
+            "methods": {
+                "snapshot": {
+                    "visibility": "public",
+                    "static": true,
+                    "parameters": [
+                        {
+                            "name": "metadata",
+                            "type": "array",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        }
+                    ],
+                    "return": "array"
+                }
+            },
+            "deprecated": null
+        },
+        "Kumwe\\Audit\\Domain\\AuditVerificationFinding": {
+            "kind": "class",
+            "stability": "stable",
+            "file": "src/Domain/AuditVerificationFinding.php",
+            "abstract": false,
+            "final": true,
+            "readonly": true,
+            "parent": null,
+            "interfaces": [],
+            "constants": {},
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "static": false,
+                    "readonly": true
+                },
+                "detail": {
+                    "type": "string",
+                    "static": false,
+                    "readonly": true
+                },
+                "eventId": {
+                    "type": "?string",
+                    "static": false,
+                    "readonly": true
+                },
+                "position": {
+                    "type": "int",
+                    "static": false,
+                    "readonly": true
+                }
+            },
+            "methods": {
+                "__construct": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [
+                        {
+                            "name": "code",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "position",
+                            "type": "int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "detail",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "eventId",
+                            "type": "?string",
+                            "optional": true,
+                            "variadic": false,
+                            "by_reference": false
+                        }
+                    ],
+                    "return": null
+                }
+            },
+            "deprecated": null
+        },
+        "Kumwe\\Audit\\Domain\\AuditVerificationReport": {
+            "kind": "class",
+            "stability": "stable",
+            "file": "src/Domain/AuditVerificationReport.php",
+            "abstract": false,
+            "final": true,
+            "readonly": true,
+            "parent": null,
+            "interfaces": [],
+            "constants": {},
+            "properties": {
+                "anchorsVerified": {
+                    "type": "int",
+                    "static": false,
+                    "readonly": true
+                },
+                "enforcement": {
+                    "type": "Kumwe\\Audit\\Domain\\AuditEnforcementState",
+                    "static": false,
+                    "readonly": true
+                },
+                "eventsVerified": {
+                    "type": "int",
+                    "static": false,
+                    "readonly": true
+                },
+                "firstDivergence": {
+                    "type": "?Kumwe\\Audit\\Domain\\AuditVerificationFinding",
+                    "static": false,
+                    "readonly": true
+                },
+                "headPosition": {
+                    "type": "int",
+                    "static": false,
+                    "readonly": true
+                }
+            },
+            "methods": {
+                "__construct": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [
+                        {
+                            "name": "eventsVerified",
+                            "type": "int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "anchorsVerified",
+                            "type": "int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "headPosition",
+                            "type": "int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "enforcement",
+                            "type": "Kumwe\\Audit\\Domain\\AuditEnforcementState",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "firstDivergence",
+                            "type": "?Kumwe\\Audit\\Domain\\AuditVerificationFinding",
+                            "optional": true,
+                            "variadic": false,
+                            "by_reference": false
+                        }
+                    ],
+                    "return": null
+                },
+                "guarded": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [],
+                    "return": "bool"
+                },
+                "intact": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [],
+                    "return": "bool"
+                }
+            },
+            "deprecated": null
+        },
+        "Kumwe\\Audit\\Domain\\StoredAuditArchive": {
+            "kind": "class",
+            "stability": "stable",
+            "file": "src/Domain/StoredAuditArchive.php",
+            "abstract": false,
+            "final": true,
+            "readonly": true,
+            "parent": null,
+            "interfaces": [],
+            "constants": {},
+            "properties": {
+                "checksum": {
+                    "type": "string",
+                    "static": false,
+                    "readonly": true
+                },
+                "key": {
+                    "type": "string",
+                    "static": false,
+                    "readonly": true
+                },
+                "size": {
+                    "type": "int",
+                    "static": false,
+                    "readonly": true
+                }
+            },
+            "methods": {
+                "__construct": {
+                    "visibility": "public",
+                    "static": false,
+                    "parameters": [
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "size",
+                            "type": "int",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        },
+                        {
+                            "name": "checksum",
+                            "type": "string",
+                            "optional": false,
+                            "variadic": false,
+                            "by_reference": false
+                        }
+                    ],
+                    "return": null
+                }
+            },
+            "deprecated": null
+        }
+    },
+    "extension_points": [
+        "Kumwe\\Audit\\Application\\AuditArchiveStorage",
+        "Kumwe\\Audit\\Application\\AuditRecorder",
+        "Kumwe\\Audit\\Application\\AuditTrailExporter",
+        "Kumwe\\Audit\\Application\\AuditTrailVerifier"
+    ],
+    "digest_of": "src"
+}
