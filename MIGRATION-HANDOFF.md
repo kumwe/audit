@@ -32,14 +32,14 @@ source:
     sha256: null
   examined_dependencies:
   - kumwe/canonical-json
-  - kumwe/access-context 0.1.0
+  - kumwe/access-context 0.1.1
   active_related_pull_requests:
   - https://github.com/kumwe/canonical-json/pull/7
 target:
   repository: https://github.com/kumwe/audit
   artifact_identity: kumwe/audit
   canonical_namespace_or_abi: Kumwe\Audit
-  branch: agent/extract-audit-v2
+  branch: codex/extraction-readiness-20260907
   pull_request: https://github.com/kumwe/audit/pull/1
 ownership:
   responsibility: Bounded immutable audit events, secret redaction, versioned event
@@ -362,7 +362,7 @@ documentation:
   integration_or_consumer: docs/integration.md
   examples:
   - examples/typed-consumer.php
-  changelog_record: CHANGELOG.md / 0.1.0
+  changelog_record: CHANGELOG.md / 0.1.1
 release_expectations:
   version_policy: Pre-1.0 exact immutable pin only after reviewed release; no release
     claimed.

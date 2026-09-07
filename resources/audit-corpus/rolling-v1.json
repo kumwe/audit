@@ -1,0 +1,98 @@
+{
+    "schema": "kumwe-audit-rolling-corpus/v1",
+    "profile": "kumwe-audit-anchor-v1",
+    "cases": [
+        {
+            "id": "empty",
+            "digests": [],
+            "material": "kumwe-audit-anchor-v1\n",
+            "sha256": "d864ea939209b44cdac4998b0778087f4cb2d07bd4ea944febba0b21c3a23e1d"
+        },
+        {
+            "id": "two-events",
+            "digests": [
+                [
+                    1,
+                    "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+                ],
+                [
+                    2,
+                    "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d"
+                ]
+            ],
+            "material": "kumwe-audit-anchor-v1\n1:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb\n2:3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d\n",
+            "sha256": "0ec1abdcf866bd2270695da6a11cb0a07ebda51fd3df4aa72d45a3dcbfa858e2"
+        },
+        {
+            "id": "mutation",
+            "digests": [
+                [
+                    1,
+                    "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+                ],
+                [
+                    2,
+                    "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+                ]
+            ],
+            "material": "kumwe-audit-anchor-v1\n1:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb\n2:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb\n",
+            "sha256": "cdb23ec388e957c6b6f7b9a4b18f8350cf9bded783b95073fc8c08cda6343e78"
+        },
+        {
+            "id": "deletion",
+            "digests": [
+                [
+                    1,
+                    "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+                ]
+            ],
+            "material": "kumwe-audit-anchor-v1\n1:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb\n",
+            "sha256": "47ddf515187481cfc8d244d4ab1f5205e345ba1900f5fb01dec42fccf7164593"
+        },
+        {
+            "id": "reordering",
+            "digests": [
+                [
+                    2,
+                    "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d"
+                ],
+                [
+                    1,
+                    "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+                ]
+            ],
+            "material": "kumwe-audit-anchor-v1\n2:3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d\n1:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb\n",
+            "sha256": "b14e89a31b08dbd291557082e1fcd34736bb297850f570ead7ca0c687b861f02"
+        },
+        {
+            "id": "gap",
+            "digests": [
+                [
+                    1,
+                    "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+                ],
+                [
+                    3,
+                    "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d"
+                ]
+            ],
+            "material": "kumwe-audit-anchor-v1\n1:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb\n3:3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d\n",
+            "sha256": "f95d6472e72ab99f7b3c9ffb6016276906e589f43a2c592da3ab527be9ba4d6a"
+        },
+        {
+            "id": "nonzero-start",
+            "digests": [
+                [
+                    100,
+                    "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+                ],
+                [
+                    101,
+                    "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d"
+                ]
+            ],
+            "material": "kumwe-audit-anchor-v1\n100:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb\n101:3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d\n",
+            "sha256": "0090add6d64214f4ef164be75ed491dc84f05dbb4effdca116d86850a3b6020b"
+        }
+    ]
+}

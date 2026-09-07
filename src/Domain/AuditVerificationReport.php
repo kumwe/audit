@@ -40,6 +40,9 @@ final readonly class AuditVerificationReport
         public AuditEnforcementState $enforcement,
         public ?AuditVerificationFinding $firstDivergence = null,
     ) {
+        if ($eventsVerified < 0 || $anchorsVerified < 0 || $headPosition < 0 || $eventsVerified > $headPosition) {
+            throw new \InvalidArgumentException('Audit verification counters are invalid.');
+        }
     }
 
     /**

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Validate archive checksums/keys, export ranges/counts, verification findings and report counters. Add evidence boundary tests and a versioned language-neutral rolling-digest corpus; advance Access Context to published 0.1.1.
+- Refresh extraction handoff and library-owned validation evidence; App adoption remains a separate task.
+
 ## 0.1.0
 
 - Extract bounded immutable audit events, secret redaction, versioned event and anchor digests, evidence values and host storage ports.

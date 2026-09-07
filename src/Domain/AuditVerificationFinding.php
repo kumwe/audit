@@ -32,5 +32,16 @@ final readonly class AuditVerificationFinding
         public string $detail,
         public ?string $eventId = null,
     ) {
+        if (
+            preg_match('/^[a-z][a-z0-9._:-]{0,126}$/D', $code) !== 1 || $position < 0
+            || $detail === '' || strlen($detail) > 4096 || preg_match('//u', $detail) !== 1
+            || preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', $detail) === 1
+            || ($eventId !== null && (
+                $eventId === '' || strlen($eventId) > 191 || preg_match('//u', $eventId) !== 1
+                || preg_match('/[\x00-\x1F\x7F]/', $eventId) === 1
+            ))
+        ) {
+            throw new \InvalidArgumentException('Audit verification finding is invalid.');
+        }
     }
 }

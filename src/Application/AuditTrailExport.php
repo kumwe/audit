@@ -39,5 +39,12 @@ final readonly class AuditTrailExport
         public int $redactedCount,
         public ?int $anchorSequence,
     ) {
+        if (
+            $fromPosition < 1 || $toPosition < $fromPosition || $eventCount < 1
+            || $eventCount > $toPosition - $fromPosition + 1 || $redactedCount < 0
+            || ($anchorSequence !== null && $anchorSequence < 1)
+        ) {
+            throw new \InvalidArgumentException('Audit trail export evidence is invalid.');
+        }
     }
 }
