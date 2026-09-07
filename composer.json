@@ -45,11 +45,13 @@
             "@test",
             "@api",
             "@architecture",
+            "@manifests",
             "@security",
             "@clean-consumer"
         ],
         "autoload:smoke": "php resources/toolchain/autoload-smoke.php",
-        "examples": "php examples/typed-consumer.php"
+        "examples": "php examples/typed-consumer.php",
+        "manifests": "php tools/verify-governed-manifests.php"
     },
     "config": {
         "sort-packages": true

@@ -1,17 +1,44 @@
 {
     "schema": "kumwe-package-capabilities/v1",
     "package": "kumwe/audit",
-    "namespace": "Kumwe\\Audit",
-    "capabilities": [
-        "Bounded immutable audit events, secret redaction, versioned event and anchor digests, evidence values and host storage ports."
-    ],
-    "host_owned": [
+    "release": "0.1.1",
+    "namespace": "Kumwe\\Audit\\",
+    "responsibility": "Bounded audit records, secret redaction, canonical evidence values and host storage ports.",
+    "non_responsibilities": [
         "authorization",
         "persistence",
         "transactions",
         "retention",
         "external effects"
     ],
-    "canonical_profile": "kumwe-canonical-json/generic-v1",
-    "release": "0.1.1"
+    "capabilities": [
+        {
+            "id": "audit.semantics",
+            "title": "Bounded audit records, secret redaction, canonical evidence values and host storage ports.",
+            "description": "Bounded audit records, secret redaction, canonical evidence values and host storage ports.",
+            "symbols": [
+                "Kumwe\\Audit\\Application\\AuditArchiveStorage",
+                "Kumwe\\Audit\\Application\\AuditMetadataRedactor",
+                "Kumwe\\Audit\\Application\\AuditRecorder",
+                "Kumwe\\Audit\\Application\\AuditTrailExport",
+                "Kumwe\\Audit\\Application\\AuditTrailExporter",
+                "Kumwe\\Audit\\Application\\AuditTrailVerifier",
+                "Kumwe\\Audit\\Domain\\AuditAnchorDigest",
+                "Kumwe\\Audit\\Domain\\AuditEnforcementState",
+                "Kumwe\\Audit\\Domain\\AuditEvent",
+                "Kumwe\\Audit\\Domain\\AuditEventDigest",
+                "Kumwe\\Audit\\Domain\\AuditMetadata",
+                "Kumwe\\Audit\\Domain\\AuditVerificationFinding",
+                "Kumwe\\Audit\\Domain\\AuditVerificationReport",
+                "Kumwe\\Audit\\Domain\\StoredAuditArchive"
+            ],
+            "documentation": [
+                "docs/public-api.md",
+                "docs/architecture.md",
+                "docs/integration.md"
+            ]
+        }
+    ],
+    "native_requirements": null,
+    "deprecations": []
 }
