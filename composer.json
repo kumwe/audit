@@ -7,7 +7,7 @@
     "require": {
         "php": "^8.5",
         "ext-json": "*",
-        "kumwe/canonical-json": "dev-agent/canonical-encoder-port-v2",
+        "kumwe/canonical-json": "dev-main",
         "kumwe/access-context": "0.1.0"
     },
     "require-dev": {
