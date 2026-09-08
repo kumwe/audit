@@ -39,7 +39,7 @@ target:
   repository: "https://github.com/kumwe/audit"
   artifact_identity: "kumwe/audit"
   canonical_namespace_or_abi: "Kumwe\\Audit"
-  branch: "codex/extraction-readiness-20260907"
+  branch: codex/integration-readiness-20260908
   pull_request: "https://github.com/kumwe/audit/pull/5"
 ownership:
   responsibility: "Bounded immutable audit events, secret redaction, versioned event and anchor digests, evidence values and host storage ports."
@@ -57,13 +57,13 @@ ownership:
   public_manifests:
     -
       path: "resources/capabilities/v1.json"
-      sha256: "71338d9de7412fca0b19a1e5b38bce01903b67f69759fe75485244db1c4b129a"
+      sha256: "40d0b9d532edc419c22513022a9ce97eb22ed5544f1e7ba927136049bd651a1e"
     -
       path: "resources/service-map/v1.json"
-      sha256: "f9fdc50390955c64755f096ffcb313f89416b417510865ba4e48d2d7e2c1e7f7"
+      sha256: "01464f2aa14a01add0e74b24a2b516257c8d614af9ed4a6498a5875a731d7225"
     -
       path: "resources/public-api/v1.json"
-      sha256: "f5a1da42c631493e251a9190ab9ac039d6cb7393fbb06048cb55ca6442f953b8"
+      sha256: "2c6dc77bf3f6ae1d1d23a5a6cc137639a12cdab895dfeeb26804cdbeead985b0"
   intentionally_excluded:
     - "App infrastructure, middleware, operational scheduling and consumer integration tests"
 framework_php:
@@ -331,7 +331,7 @@ documentation:
   integration_or_consumer: "docs/integration.md"
   examples:
     - "examples/typed-consumer.php"
-  changelog_record: "CHANGELOG.md / 0.1.1"
+  changelog_record: "CHANGELOG.md ## 0.1.2"
 release_expectations:
   version_policy: "Pre-1.0 exact immutable pin only after reviewed release; no release claimed."
   expected_artifact_types:
@@ -439,6 +439,11 @@ The source/consumer mappings above remain the adoption inventory. Compare every 
 Package tests own portable behavior, boundary/conformance, API and construction. App retains actual authorization, transaction atomicity, persistence, concurrency, recovery and delivery tests. Remove only duplicate portable implementation tests during the separate verified adoption.
 
 ## Next-task execution notes
+
+The selected runtime dependencies are kumwe/canonical-json 0.1.1, kumwe/access-context 0.1.2.
+Access Context 0.1.2 was observed at source 132c3cd7c229ceda4398e19140d1477512c27ebf.
+Run the package dependency-readiness gate before selecting the coordinated consumer graph.
+Independent release attestations remain external and are not inferred from these version pins.
 
 Review [PR #5](https://github.com/kumwe/audit/pull/5), require its complete package gate, then let the maintainer merge. Independently verify the published successor and exact dependency graph before App adoption. Existing published releases stay intact. This task does not implement the App runtime cutover.
 
