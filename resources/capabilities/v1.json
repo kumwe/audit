@@ -1,7 +1,7 @@
 {
     "schema": "kumwe-package-capabilities/v1",
     "package": "kumwe/audit",
-    "release": "0.1.1",
+    "release": "0.1.2",
     "namespace": "Kumwe\\Audit\\",
     "responsibility": "Bounded audit records, secret redaction, canonical evidence values and host storage ports.",
     "non_responsibilities": [
