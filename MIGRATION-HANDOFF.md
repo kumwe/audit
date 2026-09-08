@@ -40,7 +40,7 @@ target:
   artifact_identity: "kumwe/audit"
   canonical_namespace_or_abi: "Kumwe\\Audit"
   branch: codex/integration-readiness-20260908
-  pull_request: "https://github.com/kumwe/audit/pull/5"
+  pull_request: https://github.com/kumwe/audit/pull/6
 ownership:
   responsibility: "Bounded immutable audit events, secret redaction, versioned event and anchor digests, evidence values and host storage ports."
   non_responsibilities:
@@ -445,7 +445,7 @@ Access Context 0.1.2 was observed at source 132c3cd7c229ceda4398e19140d1477512c2
 Run the package dependency-readiness gate before selecting the coordinated consumer graph.
 Independent release attestations remain external and are not inferred from these version pins.
 
-Review [PR #5](https://github.com/kumwe/audit/pull/5), require its complete package gate, then let the maintainer merge. Independently verify the published successor and exact dependency graph before App adoption. Existing published releases stay intact. This task does not implement the App runtime cutover.
+Review [PR #6](https://github.com/kumwe/audit/pull/6), require its complete package gate, then let the maintainer merge. Independently verify the published successor and exact dependency graph before App adoption. Existing published releases stay intact. This task does not implement the App runtime cutover.
 
 ## Drift check
 
