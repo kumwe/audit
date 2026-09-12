@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Standardize linked version, CI, PHP and license badges and current installation/dependency guidance.
+- Replace obsolete process documentation with a maintained Core contract and package release record.
+- Update archive and governed-manifest verification for the release record without changing runtime behavior.
+
 ## 0.1.2
 
 - Select Access Context 0.1.2 so every consumer receives its malformed UTF-8 identity refusal.
@@ -18,4 +24,3 @@
 - Require the explicit generic-v1 CanonicalEncoder port; no encoder fallback.
 - Add package behavior and hostile-input tests, API drift checks and archive consumer verification.
 
-This is a review candidate. No release has been published or attested.
