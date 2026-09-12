@@ -1,9 +1,8 @@
 ---
-schema: "kumwe-migration-handoff/v2"
+schema: kumwe-package-release-record/v1
 artifact_kind: "framework_php"
 migration_id: "KUMWE-MIG-2026-021"
 change_set: "KUMWE-CS-2026-021"
-state: "draft_pr_open"
 source:
   app:
     repository: "https://github.com/kumwe/app"
@@ -33,14 +32,11 @@ source:
       sha256: "84d21b12e7a2bfd752356d9a6e664bcb332e209d19017e7634e7485a4fa4e250"
   examined_dependencies:
     - "kumwe/canonical-json"
-    - "kumwe/access-context 0.1.1"
-  active_related_pull_requests: []
+    - "kumwe/access-context 0.1.2"
 target:
   repository: "https://github.com/kumwe/audit"
   artifact_identity: "kumwe/audit"
   canonical_namespace_or_abi: "Kumwe\\Audit"
-  branch: codex/integration-readiness-20260908
-  pull_request: https://github.com/kumwe/audit/pull/6
 ownership:
   responsibility: "Bounded immutable audit events, secret redaction, versioned event and anchor digests, evidence values and host storage ports."
   non_responsibilities:
@@ -333,7 +329,7 @@ documentation:
     - "examples/typed-consumer.php"
   changelog_record: "CHANGELOG.md ## 0.1.2"
 release_expectations:
-  version_policy: "Pre-1.0 exact immutable pin only after reviewed release; no release claimed."
+  version_policy: "SemVer; pre-1.0 exact version pins and independent source/archive verification for consumers."
   expected_artifact_types:
     - "Composer ZIP"
   required_checks:
@@ -342,14 +338,12 @@ release_expectations:
     - "external release attestation"
   required_registry_or_installer: "Composer"
   required_external_attestation: true
-next_task:
-  phase_name: "Immutable dependency admission and human package review, then separate release verification"
+consumer_contract:
   permitted_only_when:
-    - "All package gates pass"
-    - "CanonicalEncoder successor has exact immutable version and external attestation"
-    - "Human review and merge"
+    - "The package and selected exact dependencies pass source, archive and independent consumer verification."
+    - "Core reconciles mapped source and retained integration tests against its current implementation."
   consumer_repository: "kumwe/app"
-  dependency_or_native_change: "Replace dev canonical dependency with independently verified exact release before publication; later adopt kumwe/audit"
+  dependency_or_native_change: "Exact-pin compatible verified Audit, Canonical JSON and Access Context releases and regenerate Core composer.lock."
   namespace_or_api_replacements:
     - "Kumwe\\App\\Audit\\Application\\AuditArchiveStorage => Kumwe\\Audit\\Application\\AuditArchiveStorage"
     - "Kumwe\\App\\Audit\\Application\\AuditMetadataRedactor => Kumwe\\Audit\\Application\\AuditMetadataRedactor"
@@ -395,63 +389,50 @@ next_task:
   verification_commands:
     - "composer check"
     - "bash tools/check-release-dependencies.sh"
-concurrency:
-  likely_conflict_files:
-    - "App composer.json and composer.lock"
-    - "Host DI bindings"
-  related_migrations:
-    - "KUMWE-MIG-2026-007"
-    - "KUMWE-MIG-2026-004"
-  ownership_conflicts: []
-  integration_train: null
-  resolution_rule: "semantic-preservation"
 governance:
-  roadmap_source_sha256: "a202155ef1a65f5ab293d4f8397ebf4ac430db7f1e877c776bbe7851e6fe18d8"
-  roadmap_refs: []
-  non_roadmap_refs: []
   completion_claim: false
 decisions:
   - "CanonicalEncoder is required and never defaulted."
-  - "No App adoption, merge, tag or release in this task."
-  - "Candidate dependency ZIP isolation is not release provenance."
-blockers:
-  - "Independent verification of this successor and exact dependencies remains required before App adoption."
+  - "Local dependency ZIP isolation does not establish publication provenance."
+blockers: []
 ---
 
-## Migration/implementation summary
+# Audit release record
 
-14 types; bounded detached audit metadata, digest profiles, redaction, evidence values and recording/archive/export/verification ports. Archive, export, finding and report validation plus language-neutral rolling digest vectors are library-owned. Doctrine ledger walks remain host adapters.
+## Package contract
+
+Fourteen public types provide audit records, bounded metadata, redaction, digest material and evidence/storage ports.
 
 ## Public API and responsibility
 
-The symbol map above and [public API](docs/public-api.md) define every exported contract. [Architecture](docs/architecture.md) and [integration](docs/integration.md) retain the host boundaries.
+[Public API](public-api.md), [architecture](architecture.md) and [Core contract](core-contract.md) define ownership.
 
-## Capability reuse/semantic input review
+## Dependencies and semantic inputs
 
-This successor selects Context 0.1.1 and retains Canonical JSON 0.1.1. Published Audit 0.1.0 still pins Context 0.1.0. [Current release/dependency observations](docs/readiness-review.md) supersede obsolete initial-extraction publication blockers. No independent attestation is fabricated.
+Runtime requires exact Canonical JSON 0.1.1 and Access Context 0.1.2. The canonical corpus and rolling-digest vectors
+above retain their versioned identities; the host explicitly supplies a generic-v1 CanonicalEncoder.
 
-## Consumer inventory
+## Consumer contract
 
-The source/consumer mappings above remain the adoption inventory. Compare every mapped file and public signature against the recorded full App baseline and current App before consumer changes. Any newer portable behavior goes upstream first. Preserve App authority, adapters and workflows.
+Source and consumer mappings above record exact baselines. Core owns concrete ledger/storage/export/verifier
+adapters, authorization, transaction coupling, key custody and retention.
 
 ## Test ownership
 
-Package tests own portable behavior, boundary/conformance, API and construction. App retains actual authorization, transaction atomicity, persistence, concurrency, recovery and delivery tests. Remove only duplicate portable implementation tests during the separate verified adoption.
+The package owns metadata, digest, redaction and evidence conformance. Core retains actual database, authorization,
+transaction, concurrency, restore and recovery integration tests.
 
-## Next-task execution notes
+## Consumer verification
 
-The selected runtime dependencies are kumwe/canonical-json 0.1.1, kumwe/access-context 0.1.2.
-Access Context 0.1.2 was observed at source 132c3cd7c229ceda4398e19140d1477512c27ebf.
-Run the package dependency-readiness gate before selecting the coordinated consumer graph.
-Independent release attestations remain external and are not inferred from these version pins.
+Use exact compatible verified dependency versions and retain independent source/archive and clean-consumer evidence.
+A local archive consumer proves composition, not publication provenance or Core integration.
 
-Review [PR #6](https://github.com/kumwe/audit/pull/6), require its complete package gate, then let the maintainer merge. Independently verify the published successor and exact dependency graph before App adoption. Existing published releases stay intact. This task does not implement the App runtime cutover.
+## Compatibility and drift
 
-## Drift check
+Reconcile current Core source with the recorded baseline before replacing imports or duplicate implementation tests.
+Canonical byte profiles, timestamp projections and corpus identities are part of persisted evidence compatibility.
 
-Reconcile mapped source and tests against the recorded App baseline and current App before any adoption.
-Newer portable behavior must move upstream first; preserve App authority, persistence and integration tests.
+## Validation
 
-## Validation recipe and observed local results
-
-Run `composer check` and the repository release automation regressions. Runtime suites, strict static analysis, coding standards, manifest/API checks and the no-dev authoritative archive consumer remain required. Final tested source and archive identities belong in external CI/attestation evidence.
+Run `composer check`, the release automation regressions and the consumer integration suites. Actual publication
+and verification observations belong in external evidence, not in this source record.
